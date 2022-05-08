@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "generate-all-five-letter-words", "generate-all-five-letter-words.csproj", "{0FD607DB-F8A2-4ED3-80A8-C4A9EE7010C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0FD607DB-F8A2-4ED3-80A8-C4A9EE7010C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FD607DB-F8A2-4ED3-80A8-C4A9EE7010C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FD607DB-F8A2-4ED3-80A8-C4A9EE7010C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FD607DB-F8A2-4ED3-80A8-C4A9EE7010C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {98BC368F-55EA-4586-B3E3-40C674376B59}
+	EndGlobalSection
+EndGlobal
