@@ -1,6 +1,11 @@
-﻿using System.Diagnostics;
-using MoreLinq;
+﻿using MoreLinq;
+using Serilog;
+using System.Diagnostics;
 using WeCantSpell.Hunspell;
+
+using var log = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
 
 var dictionary = WordList.CreateFromFiles("af_ZA.dic", "af_ZA.aff");
 
@@ -8,8 +13,13 @@ var alphabet = "abcdefghijklmnopqrstuvwxyz".Select(c => c.ToString()).ToArray();
 
 Debug.Assert(alphabet.Length == 26);
 
-var words = GenerateAllWords(alphabet, 5);
+log.Information("Generating all 5-letter words from the alphabet...");
 
+var words = GenerateAllWords(alphabet, 5);
+log.Information("Generated {Count} words.", words.Length);
+log.Information("First 10 words: {Words}", words.Take(10).ToArray());
+
+log.Information("Checking words against the dictionary...");
 foreach (var word in words.Where(dictionary.Check))
 {
     Console.WriteLine(word);
