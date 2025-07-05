@@ -14,7 +14,13 @@ var alphabet = "abcdefghijklmnopqrstuvwxyz".Select(c => c.ToString()).ToArray();
 
 Debug.Assert(alphabet.Length == 26);
 
+// The first command-line argument is the word length. If it's not specified, it defaults to 5.
 var wordLength = 5;
+if (args.Length > 0 && int.TryParse(args[0], out var length))
+{
+    wordLength = length;
+}
+
 log.Information("Generating all {wordLength}-letter words from the alphabet...", wordLength);
 
 var words = GenerateAllWords(alphabet, wordLength);
