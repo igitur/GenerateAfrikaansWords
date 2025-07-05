@@ -1,7 +1,8 @@
-﻿using MoreLinq;
+using MoreLinq;
 using Serilog;
 using System.Diagnostics;
 using WeCantSpell.Hunspell;
+using System.Linq;
 
 using var log = new LoggerConfiguration()
     .WriteTo.Console()
@@ -13,23 +14,27 @@ var alphabet = "abcdefghijklmnopqrstuvwxyz".Select(c => c.ToString()).ToArray();
 
 Debug.Assert(alphabet.Length == 26);
 
-log.Information("Generating all 5-letter words from the alphabet...");
+var wordLength = 5;
+log.Information("Generating all {wordLength}-letter words from the alphabet...", wordLength);
 
-var words = GenerateAllWords(alphabet, 5);
-log.Information("Generated {Count} words.", words.Length);
-log.Information("First 10 words: {Words}", words.Take(10).ToArray());
+var words = GenerateAllWords(alphabet, wordLength);
+
+var count = Math.Pow(alphabet.Length, wordLength);
+log.Information("Generated {Count} words.", count);
+log.Information("First 10 words: {Words}", words.Take(10));
 
 log.Information("Checking words against the dictionary...");
-foreach (var word in words.Where(dictionary.Check))
+
+foreach (var word in words.AsParallel().Where(dictionary.Check))
 {
     Console.WriteLine(word);
 }
 
-string[] GenerateAllWords(string[] alphabet, int length)
+IEnumerable<string> GenerateAllWords(string[] alphabet, int length)
 {
     if (length < 1)
     {
-        return Array.Empty<string>();
+        return Enumerable.Empty<string>();
     }
     else if (length == 1)
     {
@@ -37,6 +42,6 @@ string[] GenerateAllWords(string[] alphabet, int length)
     }
     else
     {
-        return alphabet.Cartesian(GenerateAllWords(alphabet, length - 1), (s1, s2) => s1 + s2).ToArray();
+        return alphabet.Cartesian(GenerateAllWords(alphabet, length - 1), (s1, s2) => s1 + s2);
     }
 }
